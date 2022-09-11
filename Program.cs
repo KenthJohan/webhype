@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Builder;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!123");
+app.MapGet("/r1", () => "Hello World 1");
+app.MapGet("/r2", () => "Hello World 2");
+app.MapGet("/r3", () => "Hello World 3");
 
 
 
@@ -30,7 +32,7 @@ app.MapGet("/", () => "Hello World!123");
 	FileServerOptions a = new FileServerOptions  
 	{
 	FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "folder1")),  
-	RequestPath = "/a3",  
+	RequestPath = "",  
 	EnableDefaultFiles = true,
 	};
 	a.StaticFileOptions.OnPrepareResponse = (context) =>
