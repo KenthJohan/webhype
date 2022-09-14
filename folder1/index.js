@@ -1,63 +1,100 @@
-function tablemon_add_column(config, name, data)
+function thead_fill(cols)
 {
-	let th = document.createElement("th");
-	th.innerText = name;
-	config.thead.children[0].appendChild(th);
-	for(let tr of config.tbody.children)
+	let thead = document.createElement("thead");
+	let tr = document.createElement("tr");
+	thead.appendChild(tr);
+	for(c in cols)
 	{
-		let td = document.createElement("td");
-		td.innerText = "a";
-		config.html_mat.push(td);
-		tr.appendChild(td);
+		let th = document.createElement("th");
+		th.innerText = cols[c];
+		tr.appendChild(th);
+
 	}
+	return thead;
 }
 
-function tablemon(config)
+function tbody_fill(rows)
 {
-	let table = document.createElement("table");
-	config.thead = document.createElement("thead");
-	config.tbody = document.createElement("tbody");
+	let tbody = document.createElement("tbody");
+	for(r in rows)
 	{
+		let row = rows[r];
 		let tr = document.createElement("tr");
-		config.thead.appendChild(tr);
+		for(c in row)
+		{
+			let td = document.createElement("td");
+			td.innerText = row[c];
+			tr.appendChild(td);
+		}
+		tbody.appendChild(tr);
 	}
-	for(let r = 0; r < config.size[0]; ++r)
-	{
-		let tr = document.createElement("tr");
-		config.tbody.appendChild(tr);
-	}
-	for(let c = 0; c < config.size[1]; ++c)
-	{
-		tablemon_add_column(config, config.columns[c], config.datac[c]);
-	}
-	console.log(config.html_mat);
-	table.appendChild(config.thead);
-	table.appendChild(config.tbody);
-	return table;
+	return tbody;
 }
 
 
-
-
-
-
-let config = 
+function Tinatable_init(config)
 {
-	columns: ["column1", "column2", "column3"],
-	html_rows: [], // Contains body <tr> rows
-	html_mat: [], // Contains body <td> cells in column major
-	size: [2, 3], // 2 rows and 3 columns
-	datac: 
-	[
-		["c1", "c1"],  // Column 1
-		["c2", "c2"],  // Column 2
-		["c3", "c3"],  // Column 3
-	]
+	// Preconditions:
+	console.assert(config.API_requestor_fetch instanceof Function);
+	console.assert(config.API_requestor_fetch.length == 2);
+	console.assert(config.API_requestor_update instanceof Function);
+	console.assert(config.API_requestor_update.length == 3);
+	// Store all HTML elements here:
+	config.html.table = document.createElement("table");
+	// Request data from backend:
+	Promise.all([config.API_requestor_fetch(null,null)]).then((responses) =>
+	{
+		let rows = responses[0];
+		//console.log(rows);
+		config.html.thead = thead_fill(Object.keys(rows[0]));
+		config.html.tbody = tbody_fill(rows);
+		config.html.table.appendChild(config.html.tbody);
+		config.html.table.appendChild(config.html.thead);
+		config.html.target.appendChild(config.html.table);
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+let Global = {};
+Global.API_meta1 = fetch('meta1.json').then(r => r.json());
+Global.API_requestor_fetch = async (count, cursor) =>
+{
+	return fetch('/api1/baja').then(r => r.json());
+}
+Global.API_requestor_update = (ids, count, cursor) =>
+{
+
+}
+
+
+
+
+
+Global.table1 = 
+{
+	html: {target: document.body},
+	// Callback for fetching new data from backend
+	API_requestor_fetch: Global.API_requestor_fetch,
+	// Callback for updating data in backend
+	API_requestor_update: Global.API_requestor_update,
 };
 
+Promise.all([Global.API_meta1]).then((x) =>
+{
+	console.log(x[0]);
+	// Value type information is used to present data in correct graphics:
+	Global.table1.meta = x[0];
+	Tinatable_init(Global.table1);
+});
 
-let t = tablemon(config);
-tablemon_add_column(config, "a", null);
-tablemon_add_column(config, "b", null);
-
-document.body.appendChild(t);

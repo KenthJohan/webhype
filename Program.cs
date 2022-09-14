@@ -5,8 +5,23 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 app.MapGet("/r1", () => "Hello World 1");
-app.MapGet("/r2", () => "Hello World 2");
-app.MapGet("/r3", () => "Hello World 3");
+app.MapGet("/r2/{name:alpha}", async context => {
+	var name = context.Request.RouteValues["name"];
+	await context.Response.WriteAsJsonAsync(new {message = $"Hello {name}"});
+});
+
+app.MapGet("/api1/{name:alpha}", async context => {
+	var name = context.Request.RouteValues["name"];
+	var data = new[] 
+	{
+		new {id = 1, name = "hej", bonker = "Lajban"},
+		new {id = 2, name = "hej", bonker = "Lajban"},
+		new {id = 3, name = "hej", bonker = "Lajban"},
+		new {id = 4, name = "hej", bonker = "Lajban"},
+		new {id = 5, name = "hej", bonker = "Lajban"},
+	};
+	await context.Response.WriteAsJsonAsync(data);
+});
 
 
 
