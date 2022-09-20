@@ -1,28 +1,48 @@
 let Global = {};
 Global.nav = {};
-Global.nav_href = (scope) =>
+Global.nav_hrefcb = (obj) =>
 {
-
-	return "#" + JSURL.stringify(a);
+	let nav = {...Global.nav, ... obj};
+	return "#" + JSURL.stringify(nav);
 }
 
-Global.table1 = 
+Global.config_tinatable1 = 
 {
-	name: "table1",
-	html: {target: document.body},
+	scope: "tinatable1",
+	html: 
+	{
+		// Append target of generated html:
+		target: document.body
+	},
 	// Callback for fetching new data from backend
 	API_requestor_fetch: Backend.API_requestor_fetch,
 	// Callback for updating data in backend
 	API_requestor_update: Backend.API_requestor_update,
 
-	nav: Global.nav
+	// Pass global navigation state by reference
+	nav: Global.nav, 
+
+	// Type information
+	// Get this later on
+	meta: null,
+
+	nav_hrefcb: Global.nav_hrefcb,
 };
 
 Promise.all([Backend.API_meta1]).then((x) =>
 {
 	console.log(x[0]);
 	// Value type information is used to present data in correct graphics:
-	Global.table1.meta = x[0];
-	Tinatable.init(Global.table1);
+	Global.config_tinatable1.meta = x[0];
+	Tinatable.init(Global.config_tinatable1);
 });
 
+
+
+window.addEventListener('hashchange', () => {
+	console.log(window.location.hash);
+	console.log(Global.nav);
+	let h = window.location.hash.substring(1);
+	Global.nav = JSURL.parse(h);
+	console.log(Global.nav);
+  }, false);

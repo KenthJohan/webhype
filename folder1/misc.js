@@ -1,7 +1,5 @@
-function thead_fill(cols, nav, hrefcb)
+function thead_fill(cols, hrefcb)
 {
-	let na = structuredClone(nav);
-	na.c ??= {};
 	let thead = document.createElement("thead");
 	let tr = document.createElement("tr");
 	thead.appendChild(tr);
@@ -26,14 +24,9 @@ function thead_fill(cols, nav, hrefcb)
 			a0.innerText = "DESC";
 			a1.innerText = "Neutral";
 			a2.innerText = "ASC";
-			let c = {};
-			na.c[cols[c]].o = 0;
-			a0.href = "#"+JSURL.stringify(na);
-			na.c[cols[c]].o = 1;
-			a1.href = "#"+JSURL.stringify(na);
-			na.c[cols[c]].o = 2;
-			a2.href = hrefcb(`${cols[c]}.o:0`);
-			delete na.c[cols[c]];
+			a0.href = hrefcb(cols[c], 0);
+			a1.href = hrefcb(cols[c], 1);
+			a2.href = hrefcb(cols[c], 2);
 		}
 	}
 	return thead;
