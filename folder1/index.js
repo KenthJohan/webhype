@@ -3,8 +3,8 @@ let Global = {};
 Global.nav = {};
 Global.nav_get_href = (obj) =>
 {
-	//console.log("nav:", Global.nav, obj);
-	let nav = {...Global.nav, ... obj};
+	// Deep merge from loadash, vanilla javascript does not have that:
+	let nav = _.merge(Global.nav, obj);
 	return "#" + JSURL.stringify(nav);
 }
 
@@ -14,7 +14,6 @@ Global.update_orderby_href = () =>
 	const e = document.querySelectorAll("[col][order]");
 	for(let i = 0; i < e.length; i++)
 	{
-		console.log(e[i]);
 		let col = e[i].getAttribute("col");
 		let order = e[i].getAttribute("order");
 		let scope = e[i].getAttribute("scope");
@@ -27,11 +26,10 @@ Global.update_orderby_href = () =>
 
 Global.hashchange = () =>
 {
-	console.log(window.location.hash);
-	console.log(Global.nav);
 	let h = window.location.hash.substring(1);
 	Global.nav = JSURL.parse(h);
-	console.log(Global.nav);
+	// Whenever navigation URL has changed we need to update all other href:
+	Global.update_orderby_href();
 }
 
 window.addEventListener('hashchange', Global.hashchange, false);
