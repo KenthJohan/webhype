@@ -20,6 +20,12 @@ Global.update_orderby_href = () =>
 		let col = e[i].getAttribute("col");
 		let order = e[i].getAttribute("order");
 		let scope = e[i].getAttribute("scope");
+		if(Global.nav?.[scope]?.c?.[col]?.o == order)
+		{
+			e[i].classList.add("selected");
+			continue;
+		}
+		e[i].classList.remove("selected");
 		let nav = {};
 		nav[scope] = {c:{}};
 		nav[scope].c[col] = {o:order};
