@@ -3,40 +3,37 @@
 function thead_fill(scope, result, cols)
 {
 	result.thead = document.createElement("thead");
-	let a = [document.createElement("a"),document.createElement("a"),document.createElement("a")];
 	let tr = document.createElement("tr");
 	result.thead.appendChild(tr);
 	for(c in cols)
 	{
 		let th = document.createElement("th");
+		let div = document.createElement("div");
+		let a = [document.createElement("a"),document.createElement("a"),document.createElement("a")];
+		let div1 = document.createElement("div");
+		let input = document.createElement("input");
+		let div2 = document.createElement("div");
+		a[0].setAttribute("col", cols[c]);
+		a[1].setAttribute("col", cols[c]);
+		a[2].setAttribute("col", cols[c]);
+		a[0].setAttribute("order", -1);
+		a[1].setAttribute("order", 0);
+		a[2].setAttribute("order", 1);
+		a[0].setAttribute("scope", scope);
+		a[1].setAttribute("scope", scope);
+		a[2].setAttribute("scope", scope);
+		div1.innerText = cols[c];
+		a[0].innerText = "DESC";
+		a[1].innerText = "Neutral";
+		a[2].innerText = "ASC";
+		div.appendChild(div1);
+		div.appendChild(input);
+		div.appendChild(div2);
+		div2.appendChild(a[0]);
+		div2.appendChild(a[1]);
+		div2.appendChild(a[2]);
+		th.appendChild(div);
 		tr.appendChild(th);
-		{
-			a[c].dec = document.createElement("a");
-			a[c].ign = document.createElement("a");
-			a[c].asc = document.createElement("a");
-			a[c].dec.setAttribute("col", cols[c]);
-			a[c].ign.setAttribute("col", cols[c]);
-			a[c].asc.setAttribute("col", cols[c]);
-			a[c].dec.setAttribute("order", -1);
-			a[c].ign.setAttribute("order", 0);
-			a[c].asc.setAttribute("order", 1);
-			a[c].dec.setAttribute("scope", scope);
-			a[c].ign.setAttribute("scope", scope);
-			a[c].asc.setAttribute("scope", scope);
-			let div1 = document.createElement("div");
-			let input = document.createElement("input");
-			let div2 = document.createElement("div");
-			th.appendChild(div1);
-			th.appendChild(input);
-			th.appendChild(div2);
-			div2.appendChild(a[c].dec);
-			div2.appendChild(a[c].ign);
-			div2.appendChild(a[c].asc);
-			div1.innerText = cols[c];
-			a[c].dec.innerText = "DESC";
-			a[c].ign.innerText = "Neutral";
-			a[c].asc.innerText = "ASC";
-		}
 	}
 }
 

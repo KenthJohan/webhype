@@ -21,8 +21,8 @@ Tinatable.init = config =>
 		config.html.thead = {};
 		thead_fill(config.scope, config.html.thead, Object.keys(rows[0]));
 		config.html.tbody = tbody_fill(rows);
-		config.html.table.appendChild(config.html.tbody);
 		config.html.table.appendChild(config.html.thead.thead);
+		config.html.table.appendChild(config.html.tbody);
 		config.html.target.appendChild(config.html.table);
 		config.API_requestor_update_cb();
 	});

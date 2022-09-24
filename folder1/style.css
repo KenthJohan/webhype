@@ -1,8 +1,17 @@
+body
+{
+	font-family: 'Courier New', Courier, monospace;
+}
+
 table {
-font-family: arial, sans-serif;
 border-collapse: collapse;
 width: 100%;
 }
+
+th {
+	background-color:lightsteelblue;
+}
+	
 
 td, th {
 border: 1px solid #dddddd;
@@ -17,4 +26,15 @@ background-color: #dddddd;
 .selected
 {
 	background-color: orange;
+}
+
+th > div 
+{
+	display: flex;
+}
+th > div > div > a
+{
+	font-size: 8px;
+	padding: 0px 10px 0px 10px;
+	display: block;
 }
