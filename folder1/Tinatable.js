@@ -3,7 +3,7 @@ let Tinatable = {};
 
 
 
-Tinatable.init = config =>
+Tinatable.init = (config) =>
 {
 	// Preconditions:
 	console.assert(config.API_requestor_fetch instanceof Function);
@@ -14,17 +14,17 @@ Tinatable.init = config =>
 	config.html.table = document.createElement("table");
 
 	// Request data from backend:
-	Promise.all([config.API_requestor_fetch(null,null)]).then((responses) =>
+	config.API_fetch = config.API_requestor_fetch(null,null);
+	Promise.all([config.API_fetch]).then((responses) =>
 	{
 		let rows = responses[0];
 		//console.log(rows);
 		config.html.thead = {};
-		thead_fill(config.scope, config.html.thead, Object.keys(rows[0]));
+		thead_fill(config.scope, config.html.thead, Object.keys(rows[0]), Nav.cb_search);
 		config.html.tbody = tbody_fill(rows);
 		config.html.table.appendChild(config.html.thead.thead);
 		config.html.table.appendChild(config.html.tbody);
 		config.html.target.appendChild(config.html.table);
-		config.API_requestor_update_cb();
 	});
 }
 

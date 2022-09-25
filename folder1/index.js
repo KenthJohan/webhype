@@ -12,9 +12,7 @@ Global.config_tinatable1 =
 	API_requestor_fetch: Backend.API_requestor_fetch,
 	// Callback for updating data in backend
 	API_requestor_update: Backend.API_requestor_update,
-	API_requestor_update_cb: () => {Nav.update(Nav.state);},
 	// Type information
-	// Get this later on
 	meta: null,
 };
 
@@ -31,9 +29,7 @@ Global.config_tinatable2 =
 	API_requestor_fetch: Backend.API_requestor_fetch,
 	// Callback for updating data in backend
 	API_requestor_update: Backend.API_requestor_update,
-	API_requestor_update_cb: () => {Nav.update(Nav.state);},
 	// Type information
-	// Get this later on
 	meta: null,
 };
 
@@ -57,4 +53,11 @@ Promise.all([Backend.API_meta1]).then((x) =>
 
 
 
+Promise.allSettled([
+	Global.config_tinatable1.API_fetch, 
+	Global.config_tinatable2.API_fetch
+]).then((results) => {
+	//console.log(results);
+	Nav.update(Nav.state);
+});
 

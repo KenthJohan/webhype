@@ -1,6 +1,6 @@
 
 
-function thead_fill(scope, result, cols)
+function thead_fill(scope, result, cols, cb_search)
 {
 	result.thead = document.createElement("thead");
 	let tr = document.createElement("tr");
@@ -13,6 +13,9 @@ function thead_fill(scope, result, cols)
 		let div1 = document.createElement("div");
 		let input = document.createElement("input");
 		let div2 = document.createElement("div");
+		input.setAttribute("col", cols[c]);
+		input.setAttribute("scope", scope);
+		input.addEventListener('change', cb_search);
 		a[0].setAttribute("col", cols[c]);
 		a[1].setAttribute("col", cols[c]);
 		a[2].setAttribute("col", cols[c]);
@@ -55,5 +58,13 @@ function tbody_fill(rows)
 	return tbody;
 }
 
+
+function input_search(html_input)
+{
+	console.assert(html_input instanceof HTMLInputElement);
+	html_input.addEventListener('change', (e) =>{
+		console.log(e.currentTarget.value);
+	});
+}
 
 
