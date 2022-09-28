@@ -5,16 +5,17 @@ Global.config_tinatable1 =
 	scope: "tinatable1",
 	html: 
 	{
-		// Append target of generated html:
 		target: document.body
 	},
-	// Callback for fetching new data from backend
-	API_requestor_fetch: Backend.API_requestor_fetch,
-	// Callback for updating data in backend
-	API_requestor_update: Backend.API_requestor_update,
-	// Type information
+	backend:
+	{
+		get: Backend.get,
+		set: Backend.set
+	},
 	meta: null,
 };
+
+
 
 
 Global.config_tinatable2 = 
@@ -22,14 +23,13 @@ Global.config_tinatable2 =
 	scope: "tinatable2",
 	html: 
 	{
-		// Append target of generated html:
 		target: document.body
 	},
-	// Callback for fetching new data from backend
-	API_requestor_fetch: Backend.API_requestor_fetch,
-	// Callback for updating data in backend
-	API_requestor_update: Backend.API_requestor_update,
-	// Type information
+	backend:
+	{
+		get: Backend.get,
+		set: Backend.set
+	},
 	meta: null,
 };
 
@@ -52,7 +52,7 @@ Promise.all([Backend.API_meta1]).then((x) =>
 
 
 
-
+/*
 Promise.allSettled([
 	Global.config_tinatable1.API_fetch, 
 	Global.config_tinatable2.API_fetch
@@ -60,4 +60,5 @@ Promise.allSettled([
 	//console.log(results);
 	Nav.update(Nav.state);
 });
+*/
 

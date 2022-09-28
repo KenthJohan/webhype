@@ -6,16 +6,17 @@ let Tinatable = {};
 Tinatable.init = (config) =>
 {
 	// Preconditions:
-	console.assert(config.API_requestor_fetch instanceof Function);
-	console.assert(config.API_requestor_fetch.length == 2);
-	console.assert(config.API_requestor_update instanceof Function);
-	console.assert(config.API_requestor_update.length == 3);
+	console.assert(config.backend.get instanceof Function);
+	console.assert(config.backend.get.length == 2);
+	console.assert(config.backend.set instanceof Function);
+	console.assert(config.backend.set.length == 3);
 	// Store all HTML elements here:
 	config.html.table = document.createElement("table");
-
 	// Request data from backend:
-	config.API_fetch = config.API_requestor_fetch(null,null);
-	Promise.all([config.API_fetch]).then((responses) =>
+	let count = 0;
+	let cursor = 0;
+	let f = config.backend.get(count,cursor);
+	Promise.all([f]).then((responses) =>
 	{
 		let rows = responses[0];
 		//console.log(rows);
