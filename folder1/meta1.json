@@ -1,4 +1,41 @@
 {
+
+	"components": 
+	{
+		"id"               : {"type":"int", "importance":"critical"},
+		"record_status"    : {"type":"enum", "importance":"critical"},
+		"time_created"     : {"type":"datetime", "importance":"critical", "quantity":"time", "unit":"utc"},
+		"time_modified"    : {"type":"datetime", "importance":"critical", "quantity":"time", "unit":"utc"},
+		"title"            : {"type":"string", "importance":"critical"},
+		"name"             : {"type":"string", "importance":"critical"},
+		"firstname"        : {"type":"string", "importance":""},
+		"lastname"         : {"type":"string", "importance":""},
+		"price"            : {"type":"int", "importance":"", "quantity":"money", "unit":"SEK"},
+		"email"            : {"type":"string", "importance":"critical"},
+		"url"              : {"type":"string", "importance":""},
+		"language_id"      : {"type":"int"},
+		"attribute_id"     : {"type":"int"},
+		"token"            : {"type":"string"},
+		"created"          : {"type":"datetime"},
+		"description"      : {"type":"string", "importance":""},
+		"course"           : {"type":"object", "importance":""},
+		"user"             : {"type":"object", "importance":""},
+		"organization"     : {"type":"object", "importance":""},
+		"content"          : {"type":"object", "importance":""},
+		"descriptions"     : {"type":"list of content"},
+		"users"            : {"type":"list of user"},
+		"courses"          : {"type":"list of course"},
+		"$extsync"         : {"type":"function"},
+		"$cursor"          : {"type":"unknown"},
+		"$r;USERS"         : {"type":"unknown"},
+		"$r;COURSES"       : {"type":"unknown"},
+		"$r;INQUIRIES"     : {"type":"unknown"},
+		"$r;ORGANIZATIONS" : {"type":"unknown"},
+		"$r;KEYWORDS"      : {"type":"unknown"},
+		"$dummy"           : {"type":"unknown"}
+	},
+
+
 	"components_style": 
 	{
 		"id"            : {"edit":"raw", "filter":"input", "htmltype":"number", "prefix":"", "width":"80px"},
@@ -89,41 +126,6 @@
 		"dummy"         : {"default":"r", "Siteadmin":"rw", "AUTHOR":"r-"}
 	},
 
-	"components": 
-	{
-		"id"               : {"type":"int", "importance":"critical"},
-		"record_status"    : {"type":"enum", "importance":"critical"},
-		"time_created"     : {"type":"datetime", "importance":"critical", "quantity":"time", "unit":"utc"},
-		"time_modified"    : {"type":"datetime", "importance":"critical", "quantity":"time", "unit":"utc"},
-		"title"            : {"type":"string", "importance":"critical"},
-		"name"             : {"type":"string", "importance":"critical"},
-		"firstname"        : {"type":"string", "importance":""},
-		"lastname"         : {"type":"string", "importance":""},
-		"price"            : {"type":"int", "importance":"", "quantity":"money", "unit":"SEK"},
-		"email"            : {"type":"string", "importance":"critical"},
-		"url"              : {"type":"string", "importance":""},
-		"language_id"      : {"type":"int"},
-		"attribute_id"     : {"type":"int"},
-		"token"            : {"type":"string"},
-		"created"          : {"type":"datetime"},
-		"description"      : {"type":"string", "importance":""},
-		"course"           : {"type":"object", "importance":""},
-		"user"             : {"type":"object", "importance":""},
-		"organization"     : {"type":"object", "importance":""},
-		"content"          : {"type":"object", "importance":""},
-		"descriptions"     : {"type":"list of content"},
-		"users"            : {"type":"list of user"},
-		"courses"          : {"type":"list of course"},
-		"$extsync"         : {"type":"function"},
-		"$cursor"          : {"type":"unknown"},
-		"$r;USERS"         : {"type":"unknown"},
-		"$r;COURSES"       : {"type":"unknown"},
-		"$r;INQUIRIES"     : {"type":"unknown"},
-		"$r;ORGANIZATIONS" : {"type":"unknown"},
-		"$r;KEYWORDS"      : {"type":"unknown"},
-		"$dummy"           : {"type":"unknown"}
-	},
-
 	"collections":
 	{
 		"UNKNOWN"        : [],
@@ -131,7 +133,7 @@
 		"INQUIRIES"      : ["id", "record_status", "title", "time_modified", "time_created", "$r;USERS", "$r;KEYWORDS"],
 		"USERS"          : ["id", "record_status", "email", "firstname", "lastname", "time_modified", "time_created", "$r;COURSES", "$r;INQUIRIES", "$r;ORGANIZATIONS"],
 		"ORGANIZATIONS"  : ["id", "record_status", "title", "users", "descriptions", "time_modified", "time_created", "$r;USERS"],
-		"KEYWORDS"       : ["id", "record_status", "name"],
+		"KEYWORDS"       : ["id", "record_status", "name", "time_created"],
 		"CONTENTS"       : ["id", "record_status", "name", "content", "language_id", "attribute_id"],
 		"LANGUAGES"      : ["id", "record_status", "name"],
 		"ATTRIBUTES"     : ["id", "record_status", "name"], 

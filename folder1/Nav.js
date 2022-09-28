@@ -50,8 +50,8 @@ Nav.update_input = (state) =>
 		let col = e[i].getAttribute("col");
 		let scope = e[i].getAttribute("scope");
 		let f = state?.[scope]?.c?.[col]?.f;
-		if (!f) {continue;}
-		e[i].value = f;
+		//if (!f) {continue;}
+		e[i].value = f ?? "";
 		//console.log(e[i], scope, col, state, f);
 	}
 }

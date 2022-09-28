@@ -1,6 +1,6 @@
 let Global = {};
 
-Global.config_tinatable1 = 
+Global.t1 = 
 {
 	scope: "tinatable1",
 	html: 
@@ -9,8 +9,8 @@ Global.config_tinatable1 =
 	},
 	backend:
 	{
-		get: Backend.get,
-		set: Backend.set
+		fetcher_get: Backend.fetcher_get,
+		fetcher_set: Backend.fetcher_set
 	},
 	meta: null,
 };
@@ -18,7 +18,7 @@ Global.config_tinatable1 =
 
 
 
-Global.config_tinatable2 = 
+Global.t2 = 
 {
 	scope: "tinatable2",
 	html: 
@@ -27,8 +27,8 @@ Global.config_tinatable2 =
 	},
 	backend:
 	{
-		get: Backend.get,
-		set: Backend.set
+		fetcher_get: Backend.fetcher_get,
+		fetcher_set: Backend.fetcher_set
 	},
 	meta: null,
 };
@@ -37,14 +37,14 @@ Global.config_tinatable2 =
 
 
 
-Promise.all([Backend.API_meta1]).then((x) =>
+Promise.all([Backend.fetch_meta]).then((x) =>
 {
 	// console.log(x[0]);
 	// Value type information is used to present data in correct graphics:
-	Global.config_tinatable1.meta = x[0];
-	Global.config_tinatable2.meta = x[0];
-	Tinatable.init(Global.config_tinatable1);
-	Tinatable.init(Global.config_tinatable2);
+	Global.t1.meta = x[0];
+	Global.t2.meta = x[0];
+	Tinatable.init(Global.t1);
+	Tinatable.init(Global.t2);
 });
 
 

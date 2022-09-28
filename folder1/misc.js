@@ -1,10 +1,10 @@
 
 
-function thead_fill(scope, result, cols, cb_search)
+function thead_fill(scope, cols, cb_search)
 {
-	result.thead = document.createElement("thead");
+	let thead = document.createElement("thead");
 	let tr = document.createElement("tr");
-	result.thead.appendChild(tr);
+	thead.appendChild(tr);
 	for(c in cols)
 	{
 		let th = document.createElement("th");
@@ -38,6 +38,7 @@ function thead_fill(scope, result, cols, cb_search)
 		th.appendChild(div);
 		tr.appendChild(th);
 	}
+	return thead;
 }
 
 function tbody_fill(rows)
