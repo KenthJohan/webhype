@@ -1,12 +1,12 @@
 let Nav = {};
 Nav.state = {};
 
-Nav.href = (obj) =>
+Nav.href = (state, obj) =>
 {
 	// Deep merge from loadash, vanilla javascript does not have that:
 	// Destination object, result of deep merging:
 	let result = {};
-	_.merge(result, Nav.state, obj);
+	_.merge(result, state, obj);
 	return "#" + JSURL.stringify(result);
 }
 
@@ -35,7 +35,7 @@ Nav.update_orderby_href = (state) =>
 		let part = {};
 		part[scope] = {c:{}};
 		part[scope].c[col] = {o:order};
-		e[i].href = Nav.href(part);
+		e[i].href = Nav.href(state, part);
 		//console.log("update_orderby_href", scope, nav);
 	}
 }
@@ -74,7 +74,6 @@ Nav.cb_search = (e) =>
 
 Nav.update = (state) =>
 {
-	console.log("Nav.update", state);
 	Nav.update_orderby_href(state);
 	Nav.update_input(state);
 }
@@ -83,14 +82,3 @@ Nav.update = (state) =>
 
 
 
-Nav.hashchange = () =>
-{
-	//console.log("Global.hashchange", Global.nav);
-	let h = window.location.hash.substring(1);
-	Nav.state = JSURL.parse(h);
-	//console.log(Nav.state);
-	// Whenever navigation URL has changed we need to update all other href:
-	Nav.update(Nav.state);
-}
-
-window.addEventListener('hashchange', Nav.hashchange, false);
