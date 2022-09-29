@@ -1,6 +1,6 @@
 
 
-function thead_fill(scope, cols, cb_search)
+function thead_fill(scope, cols, search_cb, search_arg)
 {
 	let thead = document.createElement("thead");
 	let tr = [document.createElement("tr"),document.createElement("tr"),document.createElement("tr")];
@@ -43,7 +43,15 @@ function thead_fill(scope, cols, cb_search)
 		let input = document.createElement("input");
 		input.setAttribute("col", cols[c]);
 		input.setAttribute("scope", scope);
-		input.addEventListener('change', cb_search);
+		//input.addEventListener('change', cb_search);
+		input.addEventListener("keypress", (event) => {
+			if (event.key === "Enter")
+			{
+				search_cb(event, search_arg);
+			}
+		});
+
+
 		th.appendChild(input);
 		tr[2].appendChild(th);
 	}

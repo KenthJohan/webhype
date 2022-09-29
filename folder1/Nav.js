@@ -43,8 +43,8 @@ Nav.update_orderby_href = (state) =>
 
 Nav.update_input = (state) =>
 {
-	//console.log("update_orderby_href", Global.nav);
 	const e = document.querySelectorAll("input[col][scope]");
+	console.log("update_input", state, e);
 	for(let i = 0; i < e.length; i++)
 	{
 		let col = e[i].getAttribute("col");
@@ -52,21 +52,20 @@ Nav.update_input = (state) =>
 		let f = state?.[scope]?.c?.[col]?.f;
 		//if (!f) {continue;}
 		e[i].value = f ?? "";
-		//console.log(e[i], scope, col, state, f);
+		console.log(e[i], scope, col, state, f);
 	}
 }
 
 
-Nav.cb_search = (e) =>
+Nav.cb_search = (e, arg) =>
 {
 	let value = e.currentTarget.value;
 	let col = e.currentTarget.getAttribute("col");
 	let scope = e.currentTarget.getAttribute("scope");
-	Nav.state[scope] ??= {};
-	Nav.state[scope].c ??= {};
-	Nav.state[scope].c[col] ??= {};
-	Nav.state[scope].c[col].f = value;
-	window.location.hash = JSURL.stringify(Nav.state);
+	let navstate = {};
+	navstate[scope] = {c:{}};
+	navstate[scope].c[col] = {f:value};
+	window.location.hash = Nav.href(arg, navstate);
 	//console.log(scope, col, value);
 }
 
