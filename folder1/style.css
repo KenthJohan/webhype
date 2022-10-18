@@ -27,6 +27,7 @@ background-color: #f2f2f2;
 
 a[order], a[order]:visited, a[order]:link
 {
+	font-size: 14px;
 	color: green;
 	padding-right: 10px;
 	font-weight: 100;
@@ -35,6 +36,6 @@ a[order], a[order]:visited, a[order]:link
 
 a[order].selected
 {
-	color:darkorange;
+	color:rgb(100, 134, 0);
 	font-weight: bold;
 }

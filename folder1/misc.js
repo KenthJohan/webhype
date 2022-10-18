@@ -61,11 +61,33 @@ function thead_fill(scope, cols, search_cb, search_arg)
 	return thead;
 }
 
+
+function default_checkbox(value)
+{
+	let e = document.createElement("td");
+	e.innerText = value;
+	return e;
+}
+
+
+function special_checkbox(value)
+{
+	let e = document.createElement("input");
+	e.type = "checkbox";
+	return e;
+}
+
+
 function tbody_fill(rows, cols)
 {
 	console.assert(Array.isArray(rows));
 	console.assert(Array.isArray(cols));
 	
+	let g = 
+	{
+		"$checkbox" : special_checkbox
+	};
+
 	let tbody = document.createElement("tbody");
 	for(r in rows)
 	{
@@ -73,9 +95,17 @@ function tbody_fill(rows, cols)
 		let tr = document.createElement("tr");
 		for(c of cols)
 		{
-			let td = document.createElement("td");
-			td.innerText = row[c];
-			tr.appendChild(td);
+			let e = null;
+			if (g[c] instanceof Function)
+			{
+				e = g[c](row[c]);
+			}
+			else
+			{
+				e = document.createElement("td");
+				e.innerText = row[c];
+			}
+			tr.appendChild(e);
 		}
 		tbody.appendChild(tr);
 	}
