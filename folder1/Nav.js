@@ -43,8 +43,8 @@ Nav.update_orderby_href = (state) =>
 
 Nav.update_input = (state) =>
 {
-	const e = document.querySelectorAll("input[col][scope]");
-	console.log("update_input", state, e);
+	const e = document.querySelectorAll("input");
+	console.log("Nav.update_input", state, e);
 	for(let i = 0; i < e.length; i++)
 	{
 		let col = e[i].getAttribute("col");

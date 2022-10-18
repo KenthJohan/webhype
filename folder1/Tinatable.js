@@ -31,10 +31,10 @@ Tinatable.update = (config, navstate) =>
 	Promise.all([f]).then((responses) =>
 	{
 		let rows = responses[0];
-		//console.log(rows);
-		config.html.tbody = tbody_fill(rows);
+		console.log(rows);
+		config.html.tbody = tbody_fill(rows, cols);
 		config.html.table.appendChild(config.html.tbody);
-		config.html.target.appendChild(config.html.table);
 	});
+	config.html.target.appendChild(config.html.table);
 }
 

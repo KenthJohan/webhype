@@ -59,14 +59,14 @@ function thead_fill(scope, cols, search_cb, search_arg)
 	return thead;
 }
 
-function tbody_fill(rows)
+function tbody_fill(rows, cols)
 {
 	let tbody = document.createElement("tbody");
 	for(r in rows)
 	{
 		let row = rows[r];
 		let tr = document.createElement("tr");
-		for(c in row)
+		for(c in cols)
 		{
 			let td = document.createElement("td");
 			td.innerText = row[c];

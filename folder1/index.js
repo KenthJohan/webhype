@@ -2,7 +2,7 @@ let Global = {};
 Global.navstate = {};
 Global.navstate["t1"] = 
 {
-	o: ["id"]
+	o: ["id", "name"]
 };
 Global.navstate["t2"] = 
 {
@@ -53,7 +53,15 @@ Promise.all([Backend.fetch_meta]).then((x) =>
 	// Value type information is used to present data in correct graphics:
 	Global.t1.meta = x[0];
 	Global.t2.meta = x[0];
-	window.location.hash = Nav.href(Global.navstate, null);
+	let h = Nav.href(Global.navstate, null);
+	if (h != window.location.hash)
+	{
+		window.location.hash = h;
+	}
+	else
+	{
+		Global.hashchange();
+	}
 });
 
 
