@@ -21,17 +21,14 @@ Nav.update_orderby_href = (state) =>
 		let order = e[i].getAttribute("order");
 		let scope = e[i].getAttribute("scope");
 		let o = state?.[scope]?.c?.[col]?.o;
-		if(o == order)
+		if((o == order) || ((order == "0") && (o == undefined)))
 		{
 			e[i].classList.add("selected");
-			continue;
 		}
-		if((order == "0") && (o == undefined))
+		else
 		{
-			e[i].classList.add("selected");
-			continue;
+			e[i].classList.remove("selected");
 		}
-		e[i].classList.remove("selected");
 		let part = {};
 		part[scope] = {c:{}};
 		part[scope].c[col] = {o:order};

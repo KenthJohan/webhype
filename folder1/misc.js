@@ -2,6 +2,8 @@
 
 function thead_fill(scope, cols, search_cb, search_arg)
 {
+	console.assert(Array.isArray(cols));
+
 	let thead = document.createElement("thead");
 	let tr = [document.createElement("tr"),document.createElement("tr"),document.createElement("tr")];
 	thead.appendChild(tr[0]);
@@ -28,9 +30,9 @@ function thead_fill(scope, cols, search_cb, search_arg)
 		a[0].setAttribute("scope", scope);
 		a[1].setAttribute("scope", scope);
 		a[2].setAttribute("scope", scope);
-		a[0].innerText = "DESC";
-		a[1].innerText = "Neutral";
-		a[2].innerText = "ASC";
+		a[0].innerText = "Descending";
+		a[1].innerText = "Order";
+		a[2].innerText = "Ascending";
 		th.appendChild(a[0]);
 		th.appendChild(a[1]);
 		th.appendChild(a[2]);
@@ -61,12 +63,15 @@ function thead_fill(scope, cols, search_cb, search_arg)
 
 function tbody_fill(rows, cols)
 {
+	console.assert(Array.isArray(rows));
+	console.assert(Array.isArray(cols));
+	
 	let tbody = document.createElement("tbody");
 	for(r in rows)
 	{
 		let row = rows[r];
 		let tr = document.createElement("tr");
-		for(c in cols)
+		for(c of cols)
 		{
 			let td = document.createElement("td");
 			td.innerText = row[c];

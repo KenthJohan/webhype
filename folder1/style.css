@@ -6,24 +6,35 @@ body
 table {
 border-collapse: collapse;
 width: 100%;
+border: 1px solid #dbdbdb;
+margin: 20px;
 }
 
 th {
-	background-color:lightsteelblue;
+	background-color:#f2f2f2;
 }
 	
 
 td, th {
-border: 1px solid #dddddd;
+border: 0px solid #efefef;
 text-align: left;
 padding: 8px;
 }
 
 tr:nth-child(even) {
-background-color: #dddddd;
+background-color: #f2f2f2;
 }
 
-.selected
+a[order], a[order]:visited, a[order]:link
 {
-	background-color: orange;
+	color: green;
+	padding-right: 10px;
+	font-weight: 100;
+	text-decoration: none;
+}
+
+a[order].selected
+{
+	color:darkorange;
+	font-weight: bold;
 }
