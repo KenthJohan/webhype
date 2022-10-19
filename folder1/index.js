@@ -2,7 +2,7 @@ let Global = {};
 Global.navstate = {};
 Global.navstate["t1"] = 
 {
-	o: ["$checkbox", "id", "name"]
+	o: ["$selection", "id", "name"],
 };
 Global.navstate["t2"] = 
 {

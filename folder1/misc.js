@@ -1,63 +1,86 @@
+function html_selection()
+{
+	let e = [document.createElement("th"),document.createElement("th"),document.createElement("th")];
+	return e;
+}
+
+function html_order(scope, c)
+{
+	let th = document.createElement("th");
+	let a = [document.createElement("a"),document.createElement("a"),document.createElement("a")];
+	a[0].setAttribute("col", c);
+	a[1].setAttribute("col", c);
+	a[2].setAttribute("col", c);
+	a[0].setAttribute("order", -1);
+	a[1].setAttribute("order", 0);
+	a[2].setAttribute("order", 1);
+	a[0].setAttribute("scope", scope);
+	a[1].setAttribute("scope", scope);
+	a[2].setAttribute("scope", scope);
+	a[0].innerText = "Descending";
+	a[1].innerText = "Order";
+	a[2].innerText = "Ascending";
+	th.appendChild(a[0]);
+	th.appendChild(a[1]);
+	th.appendChild(a[2]);
+	return th;
+}
+
+
+function html_filter(scope, c, search_cb, search_arg)
+{
+	let th = document.createElement("th");
+	let input = document.createElement("input");
+	input.setAttribute("col", c);
+	input.setAttribute("scope", scope);
+	//input.addEventListener('change', cb_search);
+	input.addEventListener("keypress", (event) => {
+		if (event.key === "Enter")
+		{
+			search_cb(event, search_arg);
+		}
+	});
+	th.appendChild(input);
+	return th;
+}
+
+function html_name(c)
+{
+	let th = document.createElement("th");
+	th.innerText = c;
+	return th;
+}
 
 
 function thead_fill(scope, cols, search_cb, search_arg)
 {
 	console.assert(Array.isArray(cols));
-
 	let thead = document.createElement("thead");
 	let tr = [document.createElement("tr"),document.createElement("tr"),document.createElement("tr")];
 	thead.appendChild(tr[0]);
 	thead.appendChild(tr[1]);
-	thead.appendChild(tr[2]);
-	
-	for(c in cols)
+	thead.appendChild(tr[2]);	
+	let g = 
 	{
-		let th = document.createElement("th");
-		th.innerText = cols[c];
-		tr[0].appendChild(th);
-	}
-
-	for(c in cols)
+		"$selection" : html_selection
+	};
+	for(c of cols)
 	{
-		let th = document.createElement("th");
-		let a = [document.createElement("a"),document.createElement("a"),document.createElement("a")];
-		a[0].setAttribute("col", cols[c]);
-		a[1].setAttribute("col", cols[c]);
-		a[2].setAttribute("col", cols[c]);
-		a[0].setAttribute("order", -1);
-		a[1].setAttribute("order", 0);
-		a[2].setAttribute("order", 1);
-		a[0].setAttribute("scope", scope);
-		a[1].setAttribute("scope", scope);
-		a[2].setAttribute("scope", scope);
-		a[0].innerText = "Descending";
-		a[1].innerText = "Order";
-		a[2].innerText = "Ascending";
-		th.appendChild(a[0]);
-		th.appendChild(a[1]);
-		th.appendChild(a[2]);
-		tr[1].appendChild(th);
+		let thv;
+		if (g[c] instanceof Function)
+		{
+			thv = html_selection();
+		}
+		else
+		{
+			thv = [html_name(c), html_order(scope, c), html_filter(scope, c, search_cb, search_arg)];
+		}
+		//console.log(thv);
+		thv[0].setAttribute("col", c);
+		tr[0].appendChild(thv[0]);
+		tr[1].appendChild(thv[1]);
+		tr[2].appendChild(thv[2]);
 	}
-	
-	for(c in cols)
-	{
-		let th = document.createElement("th");
-		let input = document.createElement("input");
-		input.setAttribute("col", cols[c]);
-		input.setAttribute("scope", scope);
-		//input.addEventListener('change', cb_search);
-		input.addEventListener("keypress", (event) => {
-			if (event.key === "Enter")
-			{
-				search_cb(event, search_arg);
-			}
-		});
-
-
-		th.appendChild(input);
-		tr[2].appendChild(th);
-	}
-
 	return thead;
 }
 
@@ -72,9 +95,11 @@ function default_checkbox(value)
 
 function special_checkbox(value)
 {
+	let td = document.createElement("td");
 	let e = document.createElement("input");
 	e.type = "checkbox";
-	return e;
+	td.appendChild(e);
+	return td;
 }
 
 
@@ -85,7 +110,7 @@ function tbody_fill(rows, cols)
 	
 	let g = 
 	{
-		"$checkbox" : special_checkbox
+		"$selection" : special_checkbox
 	};
 
 	let tbody = document.createElement("tbody");

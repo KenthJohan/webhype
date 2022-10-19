@@ -35,7 +35,6 @@
 		"$dummy"           : {"type":"unknown"}
 	},
 
-
 	"components_style": 
 	{
 		"id"            : {"edit":"raw", "filter":"input", "htmltype":"number", "prefix":"", "width":"80px"},

@@ -1,5 +1,7 @@
 body
 {
+	margin: 0px;
+	padding: 0px;
 	font-family: 'Courier New', Courier, monospace;
 }
 
@@ -7,7 +9,7 @@ table {
 border-collapse: collapse;
 width: 100%;
 border: 1px solid #dbdbdb;
-margin: 20px;
+margin-bottom: 20px;
 }
 
 th {
@@ -16,9 +18,15 @@ th {
 	
 
 td, th {
-border: 0px solid #efefef;
+border: 1px solid #dedede;
 text-align: left;
-padding: 8px;
+padding: 12px;
+vertical-align: middle;
+}
+
+[col="$selection"]
+{
+	width: 10px;
 }
 
 tr:nth-child(even) {
