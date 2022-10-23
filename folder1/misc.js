@@ -1,6 +1,17 @@
-function html_selection()
+function html_selection(scope)
 {
 	let e = [document.createElement("th"),document.createElement("th"),document.createElement("th")];
+	let box = document.createElement("input");
+	box.type = "checkbox";
+	box.onchange = event =>
+	{
+		const q = document.querySelectorAll(`input[scope="${scope}"][col="$s"][type="checkbox"]`);
+		q.forEach((item) => {
+			item.checked = event.target.checked;
+			console.log(item);
+		});
+	};
+	e[2].appendChild(box);
 	return e;
 }
 
@@ -52,24 +63,27 @@ function html_name(c)
 }
 
 
-function thead_fill(scope, cols, search_cb, search_arg)
+function thead_fill(scope, components, search_cb, search_arg)
 {
-	console.assert(Array.isArray(cols));
+	console.assert(Array.isArray(components));
 	let thead = document.createElement("thead");
 	let tr = [document.createElement("tr"),document.createElement("tr"),document.createElement("tr")];
 	thead.appendChild(tr[0]);
 	thead.appendChild(tr[1]);
-	thead.appendChild(tr[2]);	
+	thead.appendChild(tr[2]);
+
+	// Callback for HTML column header:
 	let g = 
 	{
-		"$selection" : html_selection
+		"$s" : html_selection
 	};
-	for(c of cols)
+
+	for(c of components)
 	{
-		let thv;
+		let thv = null;
 		if (g[c] instanceof Function)
 		{
-			thv = html_selection();
+			thv = html_selection(scope);
 		}
 		else
 		{
@@ -93,24 +107,27 @@ function default_checkbox(value)
 }
 
 
-function special_checkbox(value)
+function special_checkbox(scope, component)
 {
+	console.log(component);
 	let td = document.createElement("td");
 	let e = document.createElement("input");
+	e.setAttribute("scope", scope);
+	e.setAttribute("col", component);
 	e.type = "checkbox";
 	td.appendChild(e);
 	return td;
 }
 
 
-function tbody_fill(rows, cols)
+function tbody_fill(scope, rows, cols)
 {
 	console.assert(Array.isArray(rows));
 	console.assert(Array.isArray(cols));
 	
 	let g = 
 	{
-		"$selection" : special_checkbox
+		"$s" : special_checkbox
 	};
 
 	let tbody = document.createElement("tbody");
@@ -123,7 +140,7 @@ function tbody_fill(rows, cols)
 			let e = null;
 			if (g[c] instanceof Function)
 			{
-				e = g[c](row[c]);
+				e = g[c](scope, c);
 			}
 			else
 			{

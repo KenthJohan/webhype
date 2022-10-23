@@ -21,8 +21,8 @@ Tinatable.update = (config, navstate) =>
 
 
 	config.html.table = document.createElement("table");
-	let cols = navstate.o;
-	config.html.thead = thead_fill(config.scope, cols, Nav.cb_search, Global.navstate);
+	let components = navstate.o; // Get sequence of components
+	config.html.thead = thead_fill(config.scope, components, Nav.cb_search, Global.navstate);
 	config.html.table.appendChild(config.html.thead);
 
 
@@ -32,7 +32,7 @@ Tinatable.update = (config, navstate) =>
 	{
 		let rows = responses[0];
 		console.log(rows);
-		config.html.tbody = tbody_fill(rows, cols);
+		config.html.tbody = tbody_fill(config.scope, rows, components);
 		config.html.table.appendChild(config.html.tbody);
 	});
 	config.html.target.appendChild(config.html.table);

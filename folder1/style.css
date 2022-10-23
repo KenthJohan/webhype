@@ -24,7 +24,7 @@ padding: 12px;
 vertical-align: middle;
 }
 
-[col="$selection"]
+th[col="$s"]
 {
 	width: 10px;
 }

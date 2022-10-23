@@ -2,7 +2,7 @@ let Global = {};
 Global.navstate = {};
 Global.navstate["t1"] = 
 {
-	o: ["$selection", "id", "name"],
+	o: ["$s", "id", "name"],
 };
 Global.navstate["t2"] = 
 {
