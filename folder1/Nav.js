@@ -66,12 +66,24 @@ Nav.cb_search = (e, arg) =>
 	//console.log(scope, col, value);
 }
 
-
+Nav.update_cursor = (state) =>
+{
+	{
+		const q = document.querySelectorAll("[cursor-prev]");
+		q.forEach((e) => {
+			let scope = e.getAttribute("scope");
+			let part = {};
+			part[scope] = {p:1};
+			e.href = Nav.href(state, part);
+		});
+	}
+}
 
 Nav.update = (state) =>
 {
 	Nav.update_orderby_href(state);
 	Nav.update_input(state);
+	Nav.update_cursor(state);
 }
 
 

@@ -11,6 +11,7 @@ Tinatable.update = (config, navstate) =>
 
 	if (config.html.table)
 	{
+		// Removes the element from the DOM.
 		config.html.table.remove();
 	}
 
@@ -35,6 +36,8 @@ Tinatable.update = (config, navstate) =>
 		config.html.tbody = tbody_fill(config.scope, rows, components);
 		config.html.table.appendChild(config.html.tbody);
 	});
+
+	// Add element to the DOM
 	config.html.target.appendChild(config.html.table);
 }
 

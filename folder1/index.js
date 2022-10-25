@@ -15,7 +15,7 @@ Global.t1 =
 	scope: "t1",
 	html: 
 	{
-		target: document.body
+		target: document.getElementById("t1")
 	},
 	backend:
 	{
@@ -33,7 +33,7 @@ Global.t2 =
 	scope: "t2",
 	html: 
 	{
-		target: document.body
+		target: document.getElementById("t2")
 	},
 	backend:
 	{
