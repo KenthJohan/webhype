@@ -8,7 +8,7 @@ function html_selection(scope)
 		const q = document.querySelectorAll(`input[scope="${scope}"][col="$s"][type="checkbox"]`);
 		q.forEach((item) => {
 			item.checked = event.target.checked;
-			console.log(item);
+			//console.log(item);
 		});
 	};
 	e[2].appendChild(box);
@@ -109,7 +109,7 @@ function default_checkbox(value)
 
 function special_checkbox(scope, component)
 {
-	console.log(component);
+	//console.log(component);
 	let td = document.createElement("td");
 	let e = document.createElement("input");
 	e.setAttribute("scope", scope);

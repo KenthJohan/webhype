@@ -41,7 +41,7 @@ Nav.update_orderby_href = (state) =>
 Nav.update_input = (state) =>
 {
 	const e = document.querySelectorAll("input");
-	console.log("Nav.update_input", state, e);
+	//console.log("Nav.update_input", state, e);
 	for(let i = 0; i < e.length; i++)
 	{
 		let col = e[i].getAttribute("col");
@@ -49,7 +49,7 @@ Nav.update_input = (state) =>
 		let f = state?.[scope]?.c?.[col]?.f;
 		//if (!f) {continue;}
 		e[i].value = f ?? "";
-		console.log(e[i], scope, col, state, f);
+		//console.log(e[i], scope, col, state, f);
 	}
 }
 
@@ -73,7 +73,28 @@ Nav.update_cursor = (state) =>
 		q.forEach((e) => {
 			let scope = e.getAttribute("scope");
 			let part = {};
-			part[scope] = {p:1};
+			part[scope] = {n:1};
+			//console.log(state[scope]);
+			e.href = Nav.href(state, part);
+		});
+	}
+	{
+		const q = document.querySelectorAll("[cursor-next]");
+		q.forEach((e) => {
+			let scope = e.getAttribute("scope");
+			let part = {};
+			part[scope] = {n:1};
+			//console.log(state[scope]);
+			e.href = Nav.href(state, part);
+		});
+	}
+	{
+		const q = document.querySelectorAll("[cursor-home]");
+		q.forEach((e) => {
+			let scope = e.getAttribute("scope");
+			let part = {};
+			part[scope] = {n:1};
+			//console.log(state[scope]);
 			e.href = Nav.href(state, part);
 		});
 	}

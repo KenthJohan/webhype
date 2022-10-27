@@ -28,12 +28,12 @@ Tinatable.update = (config, navstate) =>
 
 
 	
-	let f = config.backend.fetcher_get(navstate);
-	Promise.all([f]).then((responses) =>
+
+	config.prom = config.backend.fetcher_get(navstate).then((r) =>
 	{
-		let rows = responses[0];
-		console.log(rows);
-		config.html.tbody = tbody_fill(config.scope, rows, components);
+		//console.log("Fetched: ", r);
+		navstate.p = r.cursor;
+		config.html.tbody = tbody_fill(config.scope, r.rows, components);
 		config.html.table.appendChild(config.html.tbody);
 	});
 

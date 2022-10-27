@@ -16,8 +16,14 @@ Backend.qfetch = async (q) =>
 Backend.fetch_meta = fetch('meta1.json').then(r => r.json());
 Backend.fetcher_get = async (param) =>
 {
-	console.log("fetcher_get", param);
-	return fetch('/api1/baja').then(r => r.json());
+	//console.log("fetcher_get", param);
+	return fetch('/api1/baja').then(r => r.json()).then(r => {
+		let v = {
+			rows: r,
+			cursor: ["XXX", "YYY"],
+		}
+		return v;
+	});
 }
 Backend.fetcher_set = async (ids, count, cursor) =>
 {

@@ -84,15 +84,19 @@ Promise.allSettled([
 
 Global.hashchange = () =>
 {
-	console.log("Global.hashchange1", Global.navstate);
+	//console.log("Global.hashchange1", Global.navstate);
 	let h = window.location.hash.substring(1);
 	Global.navstate = JSURL.parse(h);
-	console.log("Global.hashchange2", Global.navstate);
+	//console.log("Global.hashchange2", Global.navstate);
 	//console.log(Nav.state);
 	// Whenever navigation URL has changed we need to update all other href:
 	Tinatable.update(Global.t1, Global.navstate["t1"]);
 	Tinatable.update(Global.t2, Global.navstate["t2"]);
-	Nav.update(Global.navstate);
+	Promise.all([Global.t1.prom, Global.t2.prom]).then(x => {
+		//console.log(Global.navstate);
+		Nav.update(Global.navstate);
+	});
+
 }
 
 window.addEventListener('hashchange', Global.hashchange, false);
