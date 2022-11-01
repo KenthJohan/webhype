@@ -1,4 +1,4 @@
 {
 	"type":"object",
-	"components":["id", "record_status", "time_created"],
+	"components":["id", "record_status", "time_created"]
 }

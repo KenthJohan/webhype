@@ -107,13 +107,14 @@ function default_checkbox(value)
 }
 
 
-function special_checkbox(scope, component)
+function special_checkbox(row, scope, component)
 {
 	//console.log(component);
 	let td = document.createElement("td");
 	let e = document.createElement("input");
 	e.setAttribute("scope", scope);
 	e.setAttribute("col", component);
+	e.setAttribute("row", row);
 	e.type = "checkbox";
 	td.appendChild(e);
 	return td;
@@ -140,7 +141,7 @@ function tbody_fill(scope, rows, cols)
 			let e = null;
 			if (g[c] instanceof Function)
 			{
-				e = g[c](scope, c);
+				e = g[c](r, scope, c);
 			}
 			else
 			{

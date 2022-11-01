@@ -23,6 +23,10 @@ app.MapGet("/api1/{name:alpha}", async context => {
 	await context.Response.WriteAsJsonAsync(data);
 });
 
+app.MapGet("/meta", async context => {
+	Dictionary<string, Hype.Component> cv = Hype.Component.read_from_directory("meta");
+	await context.Response.WriteAsJsonAsync(cv);
+});
 
 
 {

@@ -97,8 +97,34 @@ Nav.update_cursor = (state) =>
 	}
 }
 
+
+Nav.update_selection = (state) =>
+{
+	//console.log("update_orderby_href", Global.nav);
+	const q = document.querySelectorAll('input[scope][col="$s"][row][type="checkbox"]');
+	q.forEach((e) => {
+		let col = e.getAttribute("col");
+		let scope = e.getAttribute("scope");
+		let row = e.getAttribute("row");
+		e.checked = state?.[scope]?.r?.[row]?.[col] ?? false;
+		console.log(state, scope, row, col);
+		//console.log("s", e, s);
+		e.onchange = (event) =>
+		{
+			console.log(event.target, event.target.checked);
+			let navstate = {};
+			navstate[scope] = {r:{}};
+			navstate[scope].r[row] = {};
+			navstate[scope].r[row][col] = event.target.checked;
+			window.location.hash = Nav.href(state, navstate);
+		}
+	});
+}
+
+
 Nav.update = (state) =>
 {
+	Nav.update_selection(state);
 	Nav.update_orderby_href(state);
 	Nav.update_input(state);
 	Nav.update_cursor(state);

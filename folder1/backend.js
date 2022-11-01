@@ -13,7 +13,7 @@ Backend.qfetch = async (q) =>
 
 
 
-Backend.fetch_meta = fetch('meta1.json').then(r => r.json());
+Backend.fetch_meta = fetch('meta').then(r => r.json());
 Backend.fetcher_get = async (param) =>
 {
 	//console.log("fetcher_get", param);
