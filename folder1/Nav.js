@@ -14,43 +14,40 @@ Nav.href = (state, obj) =>
 Nav.update_orderby_href = (state) =>
 {
 	//console.log("update_orderby_href", Global.nav);
-	const e = document.querySelectorAll("a[col][order]");
-	for(let i = 0; i < e.length; i++)
-	{
-		let col = e[i].getAttribute("col");
-		let order = e[i].getAttribute("order");
-		let scope = e[i].getAttribute("scope");
+	const q = document.querySelectorAll("a[col][order][scope]");
+	q.forEach((e) => {
+		let col = e.getAttribute("col");
+		let order = e.getAttribute("order");
+		let scope = e.getAttribute("scope");
 		let o = state?.[scope]?.c?.[col]?.o;
 		if((o == order) || ((order == "0") && (o == undefined)))
 		{
-			e[i].classList.add("selected");
+			e.classList.add("selected");
 		}
 		else
 		{
-			e[i].classList.remove("selected");
+			e.classList.remove("selected");
 		}
 		let part = {};
 		part[scope] = {c:{}};
 		part[scope].c[col] = {o:order};
-		e[i].href = Nav.href(state, part);
+		e.href = Nav.href(state, part);
 		//console.log("update_orderby_href", scope, nav);
-	}
+	});
 }
 
 
 Nav.update_input = (state) =>
 {
-	const e = document.querySelectorAll("input");
-	//console.log("Nav.update_input", state, e);
-	for(let i = 0; i < e.length; i++)
-	{
-		let col = e[i].getAttribute("col");
-		let scope = e[i].getAttribute("scope");
+	const q = document.querySelectorAll("input[col][scope]");
+	q.forEach((e) => {
+		let col = e.getAttribute("col");
+		let scope = e.getAttribute("scope");
 		let f = state?.[scope]?.c?.[col]?.f;
 		//if (!f) {continue;}
-		e[i].value = f ?? "";
-		//console.log(e[i], scope, col, state, f);
-	}
+		e.value = f ?? "";
+		//console.log(e, scope, col, state, f);
+	});
 }
 
 

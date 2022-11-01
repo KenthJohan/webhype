@@ -1,0 +1,10 @@
+{
+	"type":"int",
+	"alias":
+	{
+		"DRAFT":0,
+		"APPROVED":1
+		"GENERATED":2
+		"ARCHIVED":3
+	}
+}

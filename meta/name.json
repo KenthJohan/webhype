@@ -1,0 +1,8 @@
+{
+	"type":"string",
+	"jsonld":
+	{
+		"@id":"schema:name",
+		"url":"http://xmlns.com/foaf/0.1/name"
+	}
+}

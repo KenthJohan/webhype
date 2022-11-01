@@ -1,0 +1,10 @@
+{
+	"type":"datetime",
+	"quantity":"time",
+	"unit":"utc",
+	"jsonld" : 
+	{
+		"@id":"schema:DateTime", 
+		"url":"https://schema.org/DateTime"
+	},
+}

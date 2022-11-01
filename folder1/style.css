@@ -5,22 +5,33 @@ body
 	font-family: 'Courier New', Courier, monospace;
 }
 
-table {
-border-collapse: collapse;
-width: 100%;
-margin-bottom: 20px;
+a
+{
+	all: unset;
 }
 
-th {
+table
+{
+border-collapse: collapse;
+width: 100%;
+margin-bottom: 40px;
+}
+
+th
+{
 	background-color:#f2f2f2;
 }
 	
 
-td, th {
+td, th
+{
 border: 1px solid #dedede;
 text-align: left;
-padding: 12px;
+padding-top: 1px;
+padding-bottom: 1px;
+padding-left: 4px;
 vertical-align: middle;
+font-weight:100;
 }
 
 th[col="$s"]
@@ -32,17 +43,29 @@ tr:nth-child(even) {
 background-color: #f2f2f2;
 }
 
-a[order], a[order]:visited, a[order]:link
+a[order]
 {
 	font-size: 14px;
 	color: green;
 	padding-right: 10px;
-	font-weight: 100;
-	text-decoration: none;
 }
 
 a[order].selected
 {
-	color:rgb(100, 134, 0);
-	font-weight: bold;
+	color:rgb(121, 161, 0) !important;
+	font-weight: bold !important;
+}
+
+.bar
+{
+	background-color: rgb(103, 103, 103);
+	color:#ececec;
+	padding: 3px;
+}
+
+
+a:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
 }
