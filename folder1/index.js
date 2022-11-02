@@ -71,29 +71,27 @@ Promise.all([Backend.fetch_meta]).then((x) =>
 // Update the GUI accordingly when URL-hash has been changed:
 Global.hashchange = () =>
 {
+	// Everytime the URL-hash has changed we need to parse the URL-hash and update the Global navstate:
+	let h = window.location.hash.substring(1);
+	Global.navstate = JSURL.parse(h);
+
+	console.log("Global.hashchange", Global.hashchange_ignore);
 	if(Global.hashchange_ignore)
 	{
 		Global.hashchange_ignore = false;
 		return;
 	}
-	console.log("Global.hashchange");
-	// Everytime the URL-hash has changed we need to parse the URL-hash and update the Global navstate:
-	let h = window.location.hash.substring(1);
-	Global.navstate = JSURL.parse(h);
 
 	// Whenever navstate has changed we need to update all other href:
 	Tinatable.update(Global.t1, Global.navstate["t1"]);
 	Tinatable.update(Global.t2, Global.navstate["t2"]);
 	Promise.all([Global.t1.prom, Global.t2.prom]).then(x => {
 		Nav.update(Global.navstate);
+		Global.hashchange_ignore = true;
+		window.location.hash = Nav.href(Global.navstate, null);
 	});
 }
 
 window.addEventListener('hashchange', Global.hashchange, false);
 
-Global.setnav = (state) =>
-{
-	Global.hashchange_ignore = true;
-	window.location.hash = Nav.href(state, null);
-}
 

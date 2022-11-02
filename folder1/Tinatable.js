@@ -33,7 +33,6 @@ Tinatable.update = (config, navstate) =>
 	{
 		//console.log("Fetched: ", r);
 		navstate.p = r.cursor;
-		Global.setnav(navstate, false);
 		config.html.tbody = tbody_fill(config.scope, r.rows, components);
 		config.html.table.appendChild(config.html.tbody);
 	});

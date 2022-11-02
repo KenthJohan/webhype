@@ -116,6 +116,7 @@ Nav.update_selection = (state) =>
 			navstate[scope] = {r:{}};
 			navstate[scope].r[row] = {};
 			navstate[scope].r[row][col] = event.target.checked;
+			Global.hashchange_ignore = true;
 			window.location.hash = Nav.href(state, navstate);
 		}
 	});
