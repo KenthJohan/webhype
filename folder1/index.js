@@ -3,10 +3,32 @@ Global.navstate = {};
 Global.navstate["t1"] = 
 {
 	o: ["$s", "id", "name"],
+	c: 
+	{
+		"id":
+		{
+			o:0
+		},
+		"name":
+		{
+			o:0
+		}
+	}
 };
 Global.navstate["t2"] = 
 {
-	o: ["id"]
+	o: ["id"],
+	c: 
+	{
+		"id":
+		{
+			o:0
+		},
+		"name":
+		{
+			o:0
+		}
+	}
 };
 
 

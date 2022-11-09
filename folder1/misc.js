@@ -22,9 +22,9 @@ function html_order(scope, c)
 	a[0].setAttribute("col", c);
 	a[1].setAttribute("col", c);
 	a[2].setAttribute("col", c);
-	a[0].setAttribute("order", -1);
+	a[0].setAttribute("order", 1);
 	a[1].setAttribute("order", 0);
-	a[2].setAttribute("order", 1);
+	a[2].setAttribute("order", 2);
 	a[0].setAttribute("scope", scope);
 	a[1].setAttribute("scope", scope);
 	a[2].setAttribute("scope", scope);
@@ -34,6 +34,12 @@ function html_order(scope, c)
 	th.appendChild(a[0]);
 	th.appendChild(a[1]);
 	th.appendChild(a[2]);
+	a[0].setAttribute("hbind", `${scope}.c.${c}.o`);
+	a[0].setAttribute("value", 1);
+	a[1].setAttribute("hbind", `${scope}.c.${c}.o`);
+	a[1].setAttribute("value", 0);
+	a[2].setAttribute("hbind", `${scope}.c.${c}.o`);
+	a[2].setAttribute("value", 2);
 	return th;
 }
 
@@ -87,7 +93,12 @@ function thead_fill(scope, components, search_cb, search_arg)
 		}
 		else
 		{
-			thv = [html_name(c), html_order(scope, c), html_filter(scope, c, search_cb, search_arg)];
+			thv = 
+			[
+				html_name(c), 
+				html_order(scope, c), 
+				html_filter(scope, c, search_cb, search_arg)
+			];
 		}
 		//console.log(thv);
 		thv[0].setAttribute("col", c);

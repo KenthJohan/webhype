@@ -113,12 +113,28 @@ Nav.update_selection = (state) =>
 }
 
 
+Nav.update_hbind = (state) =>
+{
+	console.log(state);
+	const q = document.querySelectorAll('a[hbind]');
+	q.forEach((e) => {
+		let v = e.getAttribute("value");
+		let b = e.getAttribute("hbind");
+		const clone = structuredClone(state);
+		_.set(clone, b, v);
+		e.href = "#" + JSURL.stringify(clone);
+		console.log(clone, b, v);
+	});
+}
+
+
 Nav.update = (state) =>
 {
-	Nav.update_selection(state);
-	Nav.update_orderby_href(state);
-	Nav.update_input(state);
-	Nav.update_cursor(state);
+	//Nav.update_selection(state);
+	//Nav.update_orderby_href(state);
+	//Nav.update_input(state);
+	//Nav.update_cursor(state);
+	Nav.update_hbind(state);
 }
 
 
