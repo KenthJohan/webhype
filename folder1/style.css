@@ -43,14 +43,14 @@ tr:nth-child(even) {
 background-color: #f2f2f2;
 }
 
-a[order]
+table a
 {
 	font-size: 14px;
 	color: green;
 	padding-right: 10px;
 }
 
-a[order].selected
+table a.selected
 {
 	color:rgb(121, 161, 0) !important;
 	font-weight: bold !important;

@@ -1,0 +1,2 @@
+let Events = {};
+Events.cmdqueue = [];

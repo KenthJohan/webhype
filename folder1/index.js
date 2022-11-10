@@ -38,6 +38,7 @@ history.replaceState(null, null, document.location.pathname + Nav.href(Global.na
 Global.t1 = 
 {
 	scope: "t1",
+	components: Global.navstate["t1"].o,
 	html: 
 	{
 		target: document.getElementById("t1")
@@ -56,6 +57,7 @@ Global.t1 =
 Global.t2 = 
 {
 	scope: "t2",
+	components: Global.navstate["t2"].o,
 	html: 
 	{
 		target: document.getElementById("t2")
@@ -81,11 +83,12 @@ Promise.all([Backend.fetch_meta]).then((x) =>
 });
 
 
-
+Events.cmdqueue.push({path:"t1"});
+Events.cmdqueue.push({path:"t2"});
+Events.cmdqueue.push({path:"fetch"});
 
 // The navstate is stored in the URL-hash.
 // Update the GUI accordingly when URL-hash has been changed:
-
 Global.hashchange = () =>
 {
 	// Everytime the URL-hash has changed we need to parse the URL-hash and update the Global navstate:
@@ -93,12 +96,35 @@ Global.hashchange = () =>
 	Global.navstate = JSURL.parse(h);
 
 	// Whenever navstate has changed we need to update all other href:
-	Tinatable.update(Global.t1, Global.navstate["t1"]);
-	Tinatable.update(Global.t2, Global.navstate["t2"]);
-	Promise.all([Global.t1.prom, Global.t2.prom]).then(x => {
-		Nav.update(Global.navstate);
-		history.replaceState(null, null, document.location.pathname + Nav.href(Global.navstate, null));
-	});
+	//Tinatable.update(Global.t1);
+	//Tinatable.update(Global.t2);
+
+
+	let fm = {};
+	fm["t1"] = (cmd) => {console.log(cmd);Tinatable.update(Global.t1);}
+	fm["t2"] = (cmd) => {console.log(cmd);Tinatable.update(Global.t2);}
+	fm["fetch"] = (cmd) => 
+	{
+		Promise.all([Global.t1.prom, Global.t2.prom]).then(x => {
+			Nav.update(Global.navstate);
+			history.replaceState(null, null, document.location.pathname + Nav.href(Global.navstate, null));
+		});
+	}
+
+	while(1)
+	{
+		let cmd = Events.cmdqueue.shift();
+		if (cmd == undefined) {break;}
+		
+		for(path in fm)
+		{
+			if(path == cmd.path.substr(0, path.length))
+			{
+				fm[path](cmd);
+			}
+		}
+	}
+
 }
 
 window.addEventListener('hashchange', Global.hashchange, false);

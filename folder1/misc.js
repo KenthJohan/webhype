@@ -19,26 +19,17 @@ function html_order(scope, c)
 {
 	let th = document.createElement("th");
 	let a = [document.createElement("a"),document.createElement("a"),document.createElement("a")];
-	a[0].setAttribute("col", c);
-	a[1].setAttribute("col", c);
-	a[2].setAttribute("col", c);
-	a[0].setAttribute("order", 1);
-	a[1].setAttribute("order", 0);
-	a[2].setAttribute("order", 2);
-	a[0].setAttribute("scope", scope);
-	a[1].setAttribute("scope", scope);
-	a[2].setAttribute("scope", scope);
 	a[0].innerText = "Descending";
 	a[1].innerText = "Order";
 	a[2].innerText = "Ascending";
 	th.appendChild(a[0]);
 	th.appendChild(a[1]);
 	th.appendChild(a[2]);
-	a[0].setAttribute("hbind", `${scope}.c.${c}.o`);
+	a[0].setAttribute("hpath", `${scope}.c.${c}.o`);
 	a[0].setAttribute("value", 1);
-	a[1].setAttribute("hbind", `${scope}.c.${c}.o`);
+	a[1].setAttribute("hpath", `${scope}.c.${c}.o`);
 	a[1].setAttribute("value", 0);
-	a[2].setAttribute("hbind", `${scope}.c.${c}.o`);
+	a[2].setAttribute("hpath", `${scope}.c.${c}.o`);
 	a[2].setAttribute("value", 2);
 	return th;
 }
@@ -48,8 +39,7 @@ function html_filter(scope, c, search_cb, search_arg)
 {
 	let th = document.createElement("th");
 	let input = document.createElement("input");
-	input.setAttribute("col", c);
-	input.setAttribute("scope", scope);
+	input.setAttribute("hpath", `${scope}.c.${c}.f`);
 	//input.addEventListener('change', cb_search);
 	input.addEventListener("keypress", (event) => {
 		if (event.key === "Enter")
